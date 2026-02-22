@@ -1,25 +1,24 @@
 
 #include "scene.h"
-#include <math.h>
+#include <cmath>
 #include "libbitmap.h"
 
 
 namespace scene{
-    Scene::Scene(): m_beg(0.0f, 0.0f), m_end(0.0f, 0.0f), m_background_color(kDefaultBackgroundColor){
+    Scene::Scene(): m_beg(0.0f, 0.0f), m_end(0.0f, 0.0f), m_objects(), m_background_color(kDefaultBackgroundColor){
         CalculatePixelParameters();
     }
     Scene::Scene(const Vec2& beg, const Vec2& end, const Color3& background_color): m_beg(beg), m_end(end), m_objects(), m_background_color(background_color){
         CalculatePixelParameters();
     }
-    Scene::Scene(const Scene& other): m_beg(other.m_beg), m_end(other.m_end), m_objects(other.m_objects), m_background_color(other.m_background_color), m_pixel_size(other.m_pixel_size), m_width_in_pixels(other.m_width_in_pixels), m_height_in_pixels(other.m_height_in_pixels){}
-    
+
     void Scene::SetBorders(const Vec2& beg, const Vec2& end){
         m_beg = beg;
         m_end = end;
         CalculatePixelParameters();
     }
-    void Scene::AddObject(const Object& object){
-        m_objects.push_back(std::make_unique<Object>(object));
+    void Scene::AddObject(std::unique_ptr<Object> obj) {
+        m_objects.push_back(std::move(obj));
     }
     void Scene::SetBackgroundColor(const Color3& color){m_background_color = color;}
 
@@ -28,27 +27,32 @@ namespace scene{
     Color3 Scene::GetBackgroundColor() const {return m_background_color;}
     const Object* Scene::GetObject(size_t index) const{
         if(index>=GetObjectsCount())
-            throw("Index out of range");
+            throw std::runtime_error("Index out of range");
+        return m_objects[index].get();
+    }
+    Object* Scene::GetObject(size_t index){
+        if(index>=GetObjectsCount())
+            throw std::runtime_error("Index out of range");
         return m_objects[index].get();
     }
     size_t Scene::GetObjectsCount() const{return m_objects.size(); }
 
-    void Scene::ChangeObject(size_t index, const Object& new_object){
+    void Scene::ChangeObject(size_t index, std::unique_ptr<Object> obj){
         if(index<GetObjectsCount())
-            m_objects[index] = std::make_unique<Object>(new_object);
+            m_objects[index] = std::move(obj);
         else
-            throw("Index out of range");
+            throw std::runtime_error("Index out of range");
     }
     void Scene::RemoveObject(size_t index){
         if(index<GetObjectsCount())
             m_objects.erase(m_objects.begin() + index);
         else 
-            throw("Index out of range");
+            throw std::runtime_error("Index out of range");
     }
 
     void Scene::RenderToBMP(const std::string& result_path) const{
-        if(m_pixel_size.IsZero()==0)
-            throw("Invalid borders: There is no scene to draw.");
+        if(m_pixel_size.IsZero())
+            throw std::runtime_error("Invalid borders: There is no scene to draw.");
          
         size_t buffer_size = static_cast<size_t>(m_height_in_pixels)*m_width_in_pixels*3;
         // BMP styled buffer - goes from left to right, from bottom to top.  
@@ -72,6 +76,7 @@ namespace scene{
     }
 
     void Scene::CalculatePixelParameters(){
+
         if(m_end.x == m_beg.x || m_end.y == m_beg.y){
             m_pixel_size=Pixel();
             m_width_in_pixels = 0;

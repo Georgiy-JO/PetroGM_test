@@ -20,20 +20,20 @@ class Scene{
 public:
     Scene();
     Scene(const Vec2& beg, const Vec2& end, const Color3& background_color = kDefaultBackgroundColor);
-    Scene(const Scene& other);
     ~Scene()=default;
 
     void SetBorders(const Vec2& beg, const Vec2& end);
-    void AddObject(const Object& object);
+    void AddObject(std::unique_ptr<Object> obj);
     void SetBackgroundColor(const Color3& color);
 
     Vec2 GetBeg() const;
     Vec2 GetEnd() const;
     Color3 GetBackgroundColor() const;
     const Object* GetObject(size_t index) const;
+     Object* GetObject(size_t index);
     size_t GetObjectsCount() const;
 
-    void ChangeObject(size_t index, const Object& new_object);
+    void ChangeObject(size_t index, std::unique_ptr<Object> obj);
     void RemoveObject(size_t index);
 
     void RenderToBMP(const std::string& result_path) const;

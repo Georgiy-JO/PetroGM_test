@@ -182,7 +182,7 @@ private: // attributes
 	union
 	{
 		char m_buffer[buffer_size];
-		struct
+		struct 
 		{
 			uint32_t m_length;      // the size, in bytes, of the bitmap file
 			uint16_t m_reserved[2]; // reserved, must be zero

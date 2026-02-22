@@ -1,7 +1,7 @@
 
 
 #include "point.h"
-#include <math.h>
+#include <cmath>
 
 
 namespace scene{
@@ -21,7 +21,7 @@ namespace scene{
         unsigned int y = static_cast<unsigned int>(std::round((m_pos.y - scene_beg.y)/pixel_size.GetHight()));
         y=(y>=hight_in_pixels)?hight_in_pixels-1:y;
 
-        size_t buffer_pos = (y*width_in_pixels+x)*3;
+        size_t buffer_pos = ((hight_in_pixels-y)*width_in_pixels+x)*3;
         (buffer)[buffer_pos] = m_color.blue;
         (buffer)[buffer_pos+1] = m_color.green;
         (buffer)[buffer_pos+2] = m_color.red;

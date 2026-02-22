@@ -1,4 +1,0 @@
-
-
-init: 
-	echo "Hello World"

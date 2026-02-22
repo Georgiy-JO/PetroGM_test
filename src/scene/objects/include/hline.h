@@ -12,10 +12,20 @@ namespace scene{
 class HLine: public Object
 {
 public:
-    HLine(/* args */);
-    ~HLine();
+    HLine()=default;
+    HLine(double x1, double x2, double y);
+    HLine(const HLine& other);
+    ~HLine()=default;
+
+    void SetPos(double x1, double x2, double y);
+    Vec2 GetBeg() const;
+    Vec2 GetEnd() const;
+    void Draw(uint8_t* buffer, unsigned int width_in_pixels, unsigned int hight_in_pixels,
+                    const Pixel& pixel_size, const Vec2& scene_beg, const Vec2& scene_end) override;
+
 private:
-    /* data */
+    Vec2 m_beg;
+    Vec2 m_end;
 };
 
 }   // namespace scene
