@@ -30,7 +30,7 @@ void Rect::Draw(uint8_t *buffer, unsigned int width_in_pixels, unsigned int high
   size_t buffer_pos;
   for (unsigned int y = y1; y <= y2; y++) {
     for (unsigned int x = x1; x <= x2; x++) {
-      buffer_pos = ((hight_in_pixels - y) * width_in_pixels + x) * 3;
+      buffer_pos = ((hight_in_pixels - y-1) * width_in_pixels + x) * 3;
       (buffer)[buffer_pos] = m_color.blue;
       (buffer)[buffer_pos + 1] = m_color.green;
       (buffer)[buffer_pos + 2] = m_color.red;

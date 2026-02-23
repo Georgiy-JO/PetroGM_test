@@ -21,7 +21,7 @@ void Point::Draw(uint8_t *buffer, unsigned int width_in_pixels, unsigned int hig
   unsigned int x = AffineTransformationToPixel(m_pos.x, scene_beg.x, pixel_size.GetWidth(), width_in_pixels);
   unsigned int y = AffineTransformationToPixel(m_pos.y, scene_beg.y, pixel_size.GetHight(), hight_in_pixels);
 
-  size_t buffer_pos = ((hight_in_pixels - y) * width_in_pixels + x) * 3;
+  size_t buffer_pos = ((hight_in_pixels - y-1) * width_in_pixels + x) * 3;
   (buffer)[buffer_pos] = m_color.blue;
   (buffer)[buffer_pos + 1] = m_color.green;
   (buffer)[buffer_pos + 2] = m_color.red;

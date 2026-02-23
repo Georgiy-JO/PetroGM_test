@@ -8,6 +8,7 @@
 #include "point.h"
 #include "rect.h"
 #include "vline.h"
+#include "dline.h"
 
 namespace parser {
 using namespace scene;
@@ -61,11 +62,10 @@ std::unique_ptr<Object> Parser::CreateObjectFromLine(const std::string &line) co
     if (iss >> y1 >> y2 >> x) return std::make_unique<VLine>(x, y1, y2);
   } else if (type == "circle") {
     float x, y, r;
-    iss >> x >> y >> r;
-    return std::make_unique<Circle>(Vec2(x, y), r);
-    // } else if (type == "triangle") {  // Custom type (outline for now)
-    //     float x1, y1, x2, y2, x3, y3; iss >> x1 >> y1 >> x2 >> y2 >> x3 >>
-    //     y3; return std::make_unique<Triangle>(x1, y1, x2, y2, x3, y3);
+    if  (iss >> x >> y >> r) return std::make_unique<Circle>(Vec2(x, y), r);
+  } else if (type == "dline") {
+    float x1, y1, x2, y2; 
+    if (iss >> x1 >> y1 >> x2 >> y2) return std::make_unique<DLine>(Vec2(x1, y1), Vec2(x2, y2));
   }
   return nullptr;
 }

@@ -27,6 +27,8 @@ void Scene::SetResolution(unsigned int resolution){
     m_resolution = kMinResolution;
   else
     m_resolution = resolution;
+
+  CalculatePixelParameters();
 }
 
 Vec2 Scene::GetBeg() const { return m_beg; }

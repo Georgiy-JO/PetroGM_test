@@ -22,7 +22,7 @@ void VLine::Draw(uint8_t *buffer, unsigned int width_in_pixels, unsigned int hig
       (m_beg.y > scene_end.y && m_end.y > scene_end.y))
     return;
 
-  // Is alright for x too, because we know that scene_beg.x <= m_beg.x.
+  // Is alright for x too, because we know that scene_beg.x <= m_beg.x
   unsigned int x = AffineTransformationToPixel(m_beg.x, scene_beg.x, pixel_size.GetWidth(), width_in_pixels); 
 
   unsigned int y1 = AffineTransformationToPixel(m_beg.y, scene_beg.y, pixel_size.GetHight(), hight_in_pixels);
@@ -30,7 +30,7 @@ void VLine::Draw(uint8_t *buffer, unsigned int width_in_pixels, unsigned int hig
 
   size_t buffer_pos;
   for (unsigned int y = y1; y <= y2; y++) {
-    buffer_pos = ((hight_in_pixels - y) * width_in_pixels + x) * 3;
+    buffer_pos = ((hight_in_pixels - y-1) * width_in_pixels + x) * 3;
     (buffer)[buffer_pos] = m_color.blue;
     (buffer)[buffer_pos + 1] = m_color.green;
     (buffer)[buffer_pos + 2] = m_color.red;

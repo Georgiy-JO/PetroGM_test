@@ -34,7 +34,7 @@ class Scene {
  private:
   constexpr static unsigned int kMaxResolution = 2048;          //check with tests
   constexpr static unsigned int kDefaultResolution = 1024;
-  constexpr static unsigned int kMinResolution = 2;             //check with tests
+  constexpr static unsigned int kMinResolution = 100;           
   constexpr static Color3 kDefaultBackgroundColor = Color3();
 
   /**

@@ -4,10 +4,10 @@
 
 namespace scene {
 /**
- * @note Судя по тому, что в условии горизонтальная линия задается не только
- * Y-координатой но и парой Х-координат, это вернее назвать отрезком, а не
- * линией. Однако именно такое название было предложено в изначальном документе,
- * по этой причине будем придерживаться таких обозначений.
+ * @note Judging by the fact that in the task-file the horizontal line is specified not only by
+ * Y-coordinate but also a pair of X-coordinates, it would be more accurate to call it a segment,
+ * not a line. However, "line" is exactly the name proposed in the original document,for this 
+ * reason we will stick to such notation.
  */
 class HLine : public Object {
  public:

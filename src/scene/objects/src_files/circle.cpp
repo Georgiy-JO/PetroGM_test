@@ -50,7 +50,7 @@ void Circle::Draw(uint8_t *buffer, unsigned int width_in_pixels, unsigned int hi
       squared_pixel_delta = std::pow((pixel_center.x - center_in_scene_coord.x), 2) +
                             std::pow((pixel_center.y - center_in_scene_coord.y), 2);
       if (squared_pixel_delta < squared_r) {
-        buffer_pos = ((hight_in_pixels - y) * width_in_pixels + x) * 3;
+        buffer_pos = ((hight_in_pixels - y-1) * width_in_pixels + x) * 3;
         (buffer)[buffer_pos] = m_color.blue;
         (buffer)[buffer_pos + 1] = m_color.green;
         (buffer)[buffer_pos + 2] = m_color.red;

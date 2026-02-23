@@ -37,6 +37,7 @@ set(SCENE_SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/scene/objects/src_files/rect.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/scene/objects/src_files/point.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/scene/objects/src_files/circle.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/scene/objects/src_files/dline.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/scene/scene.cpp
 )
 
