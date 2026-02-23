@@ -29,8 +29,7 @@ public:
 protected:
   constexpr static Color3 kDefaultColor = Color3(255, 255, 255);
   /**
-   * @brief Check if there is an issue with some parameters required by
-   * Draw(...).
+   * @brief Check if there is an issue with some parameters required by Draw(...).
    */
   bool IsThereParametersIssue(uint8_t *buffer, unsigned int width_in_pixels,
                               unsigned int hight_in_pixels,
