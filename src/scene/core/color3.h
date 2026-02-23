@@ -19,6 +19,13 @@ struct Color3 {
   constexpr Color3(const Color3 &other)
       : blue(other.blue), green(other.green), red(other.red) {}
   ~Color3() = default;
+
+  void operator=(const Color3 &other) {
+    blue = other.blue;
+    green = other.green;
+    red = other.red;
+  }
+
 };
 
 } // namespace scene

@@ -7,11 +7,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
   add_compile_options(
-    # -Wall 
-    # -Wextra 
-    # -Wpedantic 
+    -Wall 
+    -Wextra 
+    -Wpedantic 
     # -Werror 
-    # -g 
+    -g 
     -D_POSIX_C_SOURCE=201706L)
 endif()
 

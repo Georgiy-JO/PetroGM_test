@@ -6,15 +6,6 @@
 
 namespace scene {
 
-enum class ObjectType {
-  kNone = 0,
-  kPoint = 1,
-  kHLine = 2,
-  kVLine = 3,
-  kRect = 4,
-  kCircle = 5
-};
-
 class Object {
 public:
   Object() = default;
@@ -33,9 +24,7 @@ public:
                     unsigned int hight_in_pixels, const Pixel &pixel_size,
                     const Vec2 &scene_beg, const Vec2 &scene_end) = 0;
   Color3 GetColor() const { return m_color; }
-  ObjectType GetType() const { return m_type; }
   void SetColor(const Color3 &color) { m_color = color; }
-  void SetType(ObjectType type) { m_type = type; }
 
 protected:
   constexpr static Color3 kDefaultColor = Color3(255, 255, 255);
@@ -49,8 +38,6 @@ protected:
     return pixel_size.IsZero() || buffer == nullptr || width_in_pixels == 0 ||
            hight_in_pixels == 0;
   }
-
-  ObjectType m_type = ObjectType::kNone;
   Color3 m_color = kDefaultColor;
 };
 

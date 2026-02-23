@@ -1,10 +1,4 @@
 #pragma once
-
-// #include "point.h"
-// #include "hline.h"
-// #include "vline.h"
-// #include "rect.h"
-// #include "circle.h"
 #include "object.h"
 
 #include <memory>
