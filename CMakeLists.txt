@@ -9,8 +9,8 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
   add_compile_options(
     -Wall 
     -Wextra 
-    -Wpedantic 
-    # -Werror 
+    # -Werror     # libbtmap codebase has issues in lines 33 (memset) and 185 (anonymous structure)
+    -Wpedantic
     -g 
     -D_POSIX_C_SOURCE=201706L)
 endif()
@@ -28,5 +28,5 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E copy_directory
             ${CMAKE_SOURCE_DIR}/example/files
             $<TARGET_FILE_DIR:example>/files
-    COMMENT "Копирование example/files в директорию сборки"
+    COMMENT "Copy example/files to the active directory"
 )

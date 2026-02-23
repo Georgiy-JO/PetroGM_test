@@ -1,4 +1,3 @@
-
 #include "scene.h"
 #include "libbitmap.h"
 #include <cmath>
@@ -30,29 +29,22 @@ void Scene::SetBackgroundColor(const Color3 &color) {
 Vec2 Scene::GetBeg() const { return m_beg; }
 Vec2 Scene::GetEnd() const { return m_end; }
 Color3 Scene::GetBackgroundColor() const { return m_background_color; }
-const Object *Scene::GetObject(size_t index) const {
-  if (index >= GetObjectsCount())
-    throw std::runtime_error("Index out of range");
-  return m_objects[index].get();
-}
-Object *Scene::GetObject(size_t index) {
+Object *Scene::operator()(size_t index) {
   if (index >= GetObjectsCount())
     throw std::runtime_error("Index out of range");
   return m_objects[index].get();
 }
 size_t Scene::GetObjectsCount() const { return m_objects.size(); }
 
-void Scene::ChangeObject(size_t index, std::unique_ptr<Object> obj) {
-  if (index < GetObjectsCount())
-    m_objects[index] = std::move(obj);
-  else
+void Scene::ReplaceObject(size_t index, std::unique_ptr<Object> obj) {
+  if (index >= GetObjectsCount())
     throw std::runtime_error("Index out of range");
+  m_objects[index] = std::move(obj);
 }
 void Scene::RemoveObject(size_t index) {
-  if (index < GetObjectsCount())
-    m_objects.erase(m_objects.begin() + index);
-  else
+  if (index >= GetObjectsCount())
     throw std::runtime_error("Index out of range");
+  m_objects.erase(m_objects.begin() + index);
 }
 
 void Scene::RenderToBMP(const std::string &result_path) const {
@@ -61,7 +53,6 @@ void Scene::RenderToBMP(const std::string &result_path) const {
 
   size_t buffer_size =
       static_cast<size_t>(m_height_in_pixels) * m_width_in_pixels * 3;
-  // BMP styled buffer - goes from left to right, from bottom to top.
   Bitmap bmp = Bitmap();
   bmp.m_width = m_width_in_pixels;
   bmp.m_height = m_height_in_pixels;

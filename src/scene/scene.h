@@ -21,17 +21,16 @@ public:
   Vec2 GetBeg() const;
   Vec2 GetEnd() const;
   Color3 GetBackgroundColor() const;
-  const Object *GetObject(size_t index) const;
-  Object *GetObject(size_t index);
   size_t GetObjectsCount() const;
+  Object *operator()(size_t index);
 
-  void ChangeObject(size_t index, std::unique_ptr<Object> obj);
+  void ReplaceObject(size_t index, std::unique_ptr<Object> obj);
   void RemoveObject(size_t index);
 
   void RenderToBMP(const std::string &result_path) const;
 
 private:
-  constexpr static unsigned int kMaxSizeInPixels = 1024; // might be changed
+  constexpr static unsigned int kMaxSizeInPixels = 1024; // may be changed to differ resolution
   constexpr static Color3 kDefaultBackgroundColor = Color3();
 
   /**

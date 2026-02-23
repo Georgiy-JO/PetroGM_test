@@ -14,8 +14,8 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
   add_compile_options(
     -Wall 
     -Wextra 
-    -Wpedantic 
-    # -Werror 
+    # -Werror          # libbtmap codebase has issues in lines 33 (memset) and 185 (anonymous structure)
+    -Wpedantic     
     -g 
     -D_POSIX_C_SOURCE=201706L)
 endif()
