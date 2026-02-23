@@ -62,6 +62,7 @@ namespace scene {
         double squared_r = m_r * m_r;
         double squared_pixel_delta;   //squared pixel_center and center delta
 
+        // generally speaking it is not the best realization, but that is the one will will stick to for now.
         for (unsigned int y = y_min_pix; y <= y_max_pix; y++) {
             for (unsigned int x = x_min_pix; x <= x_max_pix; x++) {
                 pixel_center.x=static_cast<double>(x)*pixel_size.GetWidth()+half_pixel.x;
