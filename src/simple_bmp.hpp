@@ -1,8 +1,9 @@
 #pragma once
 
+#include <string>
+
 #include "parser.h"
 #include "scene.h"
-#include <string>
 
 /**
  * @brief This function wraps Parser and Scene together.

@@ -14,10 +14,8 @@ struct Color3 {
   uint8_t red;
 
   constexpr Color3() : blue(0), green(0), red(0) {}
-  constexpr Color3(uint8_t blue_, uint8_t green_, uint8_t red_)
-      : blue(blue_), green(green_), red(red_) {}
-  constexpr Color3(const Color3 &other)
-      : blue(other.blue), green(other.green), red(other.red) {}
+  constexpr Color3(uint8_t blue_, uint8_t green_, uint8_t red_) : blue(blue_), green(green_), red(red_) {}
+  constexpr Color3(const Color3 &other) : blue(other.blue), green(other.green), red(other.red) {}
   ~Color3() = default;
 
   void operator=(const Color3 &other) {
@@ -25,7 +23,6 @@ struct Color3 {
     green = other.green;
     red = other.red;
   }
-
 };
 
-} // namespace scene
+}  // namespace scene

@@ -1,17 +1,16 @@
 #pragma once
-#include "object.h"
-
 #include <memory>
 #include <string>
 #include <vector>
 
+#include "object.h"
+
 namespace scene {
 
 class Scene {
-public:
+ public:
   Scene();
-  Scene(const Vec2 &beg, const Vec2 &end,
-        const Color3 &background_color = kDefaultBackgroundColor);
+  Scene(const Vec2 &beg, const Vec2 &end, const Color3 &background_color = kDefaultBackgroundColor);
   ~Scene() = default;
 
   void SetBorders(const Vec2 &beg, const Vec2 &end);
@@ -29,8 +28,8 @@ public:
 
   void RenderToBMP(const std::string &result_path) const;
 
-private:
-  constexpr static unsigned int kMaxSizeInPixels = 1024; // may be changed to differ resolution
+ private:
+  constexpr static unsigned int kMaxSizeInPixels = 1024;  // may be changed to differ resolution
   constexpr static Color3 kDefaultBackgroundColor = Color3();
 
   /**
@@ -38,12 +37,12 @@ private:
    */
   void CalculatePixelParameters();
 
-  Vec2 m_beg; // bottom left conner coordinates
-  Vec2 m_end; // top right conner coordinates
+  Vec2 m_beg;  // bottom left conner coordinates
+  Vec2 m_end;  // top right conner coordinates
   std::vector<std::unique_ptr<Object>> m_objects;
   Color3 m_background_color;
   Pixel m_pixel_size;
   unsigned int m_width_in_pixels;
   unsigned int m_height_in_pixels;
 };
-} // namespace scene
+}  // namespace scene

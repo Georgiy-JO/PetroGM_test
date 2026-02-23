@@ -1,4 +1,5 @@
 #include "rect.h"
+
 #include <cmath>
 
 namespace scene {
@@ -13,15 +14,11 @@ void Rect::SetPos(const Vec2 &beg, const Vec2 &end) {
 }
 Vec2 Rect::GetBeg() const { return m_beg; }
 Vec2 Rect::GetEnd() const { return m_end; }
-void Rect::Draw(uint8_t *buffer, unsigned int width_in_pixels,
-                unsigned int hight_in_pixels, const Pixel &pixel_size,
+void Rect::Draw(uint8_t *buffer, unsigned int width_in_pixels, unsigned int hight_in_pixels, const Pixel &pixel_size,
                 const Vec2 &scene_beg, const Vec2 &scene_end) {
-  if (IsThereParametersIssue(buffer, width_in_pixels, hight_in_pixels,
-                             pixel_size) ||
-      (m_beg.x < scene_beg.x && m_end.x < scene_beg.x) ||
-      (m_beg.x > scene_end.x && m_end.x > scene_end.x) ||
-      (m_beg.y < scene_beg.y && m_end.y < scene_beg.y) ||
-      (m_beg.y > scene_end.y && m_end.y > scene_end.y)) {
+  if (IsThereParametersIssue(buffer, width_in_pixels, hight_in_pixels, pixel_size) ||
+      (m_beg.x < scene_beg.x && m_end.x < scene_beg.x) || (m_beg.x > scene_end.x && m_end.x > scene_end.x) ||
+      (m_beg.y < scene_beg.y && m_end.y < scene_beg.y) || (m_beg.y > scene_end.y && m_end.y > scene_end.y)) {
     return;
   }
 
@@ -51,4 +48,4 @@ void Rect::Draw(uint8_t *buffer, unsigned int width_in_pixels,
     }
   }
 }
-} // namespace scene
+}  // namespace scene

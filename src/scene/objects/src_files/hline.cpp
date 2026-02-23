@@ -1,4 +1,5 @@
 #include "hline.h"
+
 #include <cmath>
 
 namespace scene {
@@ -14,18 +15,14 @@ void HLine::SetPos(double x1, double x2, double y) {
 }
 Vec2 HLine::GetBeg() const { return m_beg; }
 Vec2 HLine::GetEnd() const { return m_end; }
-void HLine::Draw(uint8_t *buffer, unsigned int width_in_pixels,
-                 unsigned int hight_in_pixels, const Pixel &pixel_size,
+void HLine::Draw(uint8_t *buffer, unsigned int width_in_pixels, unsigned int hight_in_pixels, const Pixel &pixel_size,
                  const Vec2 &scene_beg, const Vec2 &scene_end) {
-  if (IsThereParametersIssue(buffer, width_in_pixels, hight_in_pixels,
-                             pixel_size) ||
-      m_beg.y < scene_beg.y || m_beg.y > scene_end.y ||
-      (m_beg.x < scene_beg.x && m_end.x < scene_beg.x) ||
+  if (IsThereParametersIssue(buffer, width_in_pixels, hight_in_pixels, pixel_size) || m_beg.y < scene_beg.y ||
+      m_beg.y > scene_end.y || (m_beg.x < scene_beg.x && m_end.x < scene_beg.x) ||
       (m_beg.x > scene_end.x && m_end.x > scene_end.x))
     return;
 
-  unsigned int y = static_cast<unsigned int>(
-      std::round((m_beg.y - scene_beg.y) / pixel_size.GetHight()));
+  unsigned int y = static_cast<unsigned int>(std::round((m_beg.y - scene_beg.y) / pixel_size.GetHight()));
   y = (y >= hight_in_pixels) ? hight_in_pixels - 1 : y;
 
   double tmp = std::round((m_beg.x - scene_beg.x) / pixel_size.GetWidth());
@@ -44,4 +41,4 @@ void HLine::Draw(uint8_t *buffer, unsigned int width_in_pixels,
     (buffer)[buffer_pos + 2] = m_color.red;
   }
 }
-} // namespace scene
+}  // namespace scene

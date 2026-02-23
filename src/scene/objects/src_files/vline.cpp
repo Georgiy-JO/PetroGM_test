@@ -1,4 +1,5 @@
 #include "vline.h"
+
 #include <cmath>
 
 namespace scene {
@@ -14,18 +15,14 @@ void VLine::SetPos(double x, double y1, double y2) {
 }
 Vec2 VLine::GetBeg() const { return m_beg; }
 Vec2 VLine::GetEnd() const { return m_end; }
-void VLine::Draw(uint8_t *buffer, unsigned int width_in_pixels,
-                 unsigned int hight_in_pixels, const Pixel &pixel_size,
+void VLine::Draw(uint8_t *buffer, unsigned int width_in_pixels, unsigned int hight_in_pixels, const Pixel &pixel_size,
                  const Vec2 &scene_beg, const Vec2 &scene_end) {
-  if (IsThereParametersIssue(buffer, width_in_pixels, hight_in_pixels,
-                             pixel_size) ||
-      m_beg.x < scene_beg.x || m_beg.x > scene_end.x ||
-      (m_beg.y < scene_beg.y && m_end.y < scene_beg.y) ||
+  if (IsThereParametersIssue(buffer, width_in_pixels, hight_in_pixels, pixel_size) || m_beg.x < scene_beg.x ||
+      m_beg.x > scene_end.x || (m_beg.y < scene_beg.y && m_end.y < scene_beg.y) ||
       (m_beg.y > scene_end.y && m_end.y > scene_end.y))
     return;
 
-  unsigned int x = static_cast<unsigned int>(
-      std::round((m_beg.x - scene_beg.x) / pixel_size.GetWidth()));
+  unsigned int x = static_cast<unsigned int>(std::round((m_beg.x - scene_beg.x) / pixel_size.GetWidth()));
   x = (x >= width_in_pixels) ? width_in_pixels - 1 : x;
 
   double tmp = std::round((m_beg.y - scene_beg.y) / pixel_size.GetHight());
@@ -45,4 +42,4 @@ void VLine::Draw(uint8_t *buffer, unsigned int width_in_pixels,
   }
 }
 
-} // namespace scene
+}  // namespace scene

@@ -7,7 +7,7 @@
 namespace scene {
 
 class Object {
-public:
+ public:
   Object() = default;
   ~Object() = default;
 
@@ -20,24 +20,21 @@ public:
    * @param scene_beg - bottom left conner of the scene;
    * @param scene_end - top right conner of the scene.
    */
-  virtual void Draw(uint8_t *buffer, unsigned int width_in_pixels,
-                    unsigned int hight_in_pixels, const Pixel &pixel_size,
-                    const Vec2 &scene_beg, const Vec2 &scene_end) = 0;
+  virtual void Draw(uint8_t *buffer, unsigned int width_in_pixels, unsigned int hight_in_pixels,
+                    const Pixel &pixel_size, const Vec2 &scene_beg, const Vec2 &scene_end) = 0;
   Color3 GetColor() const { return m_color; }
   void SetColor(const Color3 &color) { m_color = color; }
 
-protected:
+ protected:
   constexpr static Color3 kDefaultColor = Color3(255, 255, 255);
   /**
    * @brief Check if there is an issue with some parameters required by Draw(...).
    */
-  bool IsThereParametersIssue(uint8_t *buffer, unsigned int width_in_pixels,
-                              unsigned int hight_in_pixels,
+  bool IsThereParametersIssue(uint8_t *buffer, unsigned int width_in_pixels, unsigned int hight_in_pixels,
                               const Pixel &pixel_size) const {
-    return pixel_size.IsZero() || buffer == nullptr || width_in_pixels == 0 ||
-           hight_in_pixels == 0;
+    return pixel_size.IsZero() || buffer == nullptr || width_in_pixels == 0 || hight_in_pixels == 0;
   }
   Color3 m_color = kDefaultColor;
 };
 
-} // namespace scene
+}  // namespace scene

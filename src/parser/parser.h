@@ -1,13 +1,14 @@
 #pragma once
 
-#include "scene.h"
 #include <memory>
 #include <string>
+
+#include "scene.h"
 
 namespace parser {
 
 class Parser {
-public:
+ public:
   Parser() = default;
   Parser(const std::string &file_path);
   ~Parser() = default;
@@ -18,10 +19,9 @@ public:
   void Parse(scene::Scene &scene) const;
   void Parse(const std::string &file_path, scene::Scene &scene);
 
-private:
-  std::unique_ptr<scene::Object>
-  CreateObjectFromLine(const std::string &line) const;
+ private:
+  std::unique_ptr<scene::Object> CreateObjectFromLine(const std::string &line) const;
 
   std::string m_file_path;
 };
-} // namespace parser
+}  // namespace parser

@@ -3,7 +3,7 @@
 namespace scene {
 
 class Pixel {
-public:
+ public:
   Pixel() : hight(0.0f), width(0.0f) {}
   Pixel(double hight_, double width_) : Pixel() { Set(hight_, width_); }
   Pixel(double val) : Pixel() { Set(val, val); }
@@ -11,8 +11,7 @@ public:
   ~Pixel() = default;
 
   void Set(double hight_, double width_) {
-    if (hight_ < 0.0f || width_ < 0.0f)
-      throw("Invalid pixel size.");
+    if (hight_ < 0.0f || width_ < 0.0f) throw("Invalid pixel size.");
     hight = hight_;
     width = width_;
   }
@@ -28,9 +27,9 @@ public:
 
   bool IsZero() const { return hight == 0.0f && width == 0.0f; }
 
-private:
+ private:
   double hight;
   double width;
 };
 
-} // namespace scene
+}  // namespace scene

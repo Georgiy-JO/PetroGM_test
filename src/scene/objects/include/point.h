@@ -5,7 +5,7 @@
 namespace scene {
 
 class Point : public Object {
-public:
+ public:
   Point() = default;
   Point(const Vec2 &pos);
   Point(const Point &other);
@@ -13,12 +13,11 @@ public:
 
   void SetPos(const Vec2 &pos);
   Vec2 GetPos() const;
-  void Draw(uint8_t *buffer, unsigned int width_in_pixels,
-            unsigned int hight_in_pixels, const Pixel &pixel_size,
+  void Draw(uint8_t *buffer, unsigned int width_in_pixels, unsigned int hight_in_pixels, const Pixel &pixel_size,
             const Vec2 &scene_beg, const Vec2 &scene_end) override;
 
-private:
+ private:
   Vec2 m_pos;
 };
 
-} // namespace scene
+}  // namespace scene

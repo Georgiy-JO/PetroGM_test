@@ -4,8 +4,8 @@
 namespace scene {
 
 class Circle : public Object {
-public:
-  Circle()=default;
+ public:
+  Circle() = default;
   Circle(const Vec2 &center, double rr);
   Circle(const Circle &other);
   ~Circle() = default;
@@ -15,12 +15,11 @@ public:
   void SetPos(const Vec2 &center, double rr);
   Vec2 GetCenter() const;
   double GetR() const;
-  void Draw(uint8_t *buffer, unsigned int width_in_pixels,
-            unsigned int hight_in_pixels, const Pixel &pixel_size,
+  void Draw(uint8_t *buffer, unsigned int width_in_pixels, unsigned int hight_in_pixels, const Pixel &pixel_size,
             const Vec2 &scene_beg, const Vec2 &scene_end) override;
 
-private:
+ private:
   Vec2 m_center;
   double m_r;
 };
-} // namespace scene
+}  // namespace scene
