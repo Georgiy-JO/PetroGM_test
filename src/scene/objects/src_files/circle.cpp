@@ -29,21 +29,10 @@ void Circle::Draw(uint8_t *buffer, unsigned int width_in_pixels, unsigned int hi
   }
 
   // So any circle can be placed inside a square, lets get that square.
-  double tmp = std::round(((m_center.x - m_r) - scene_beg.x) / pixel_size.GetWidth());
-  unsigned int x_min_pix = static_cast<unsigned int>((tmp < 0) ? 0 : tmp);
-  x_min_pix = (x_min_pix >= width_in_pixels) ? width_in_pixels - 1 : x_min_pix;
-
-  tmp = std::round(((m_center.y - m_r) - scene_beg.y) / pixel_size.GetHight());
-  unsigned int y_min_pix = static_cast<unsigned int>((tmp < 0) ? 0 : tmp);
-  y_min_pix = (y_min_pix >= hight_in_pixels) ? hight_in_pixels - 1 : y_min_pix;
-
-  tmp = std::round(((m_center.x + m_r) - scene_beg.x) / pixel_size.GetWidth());
-  unsigned int x_max_pix = static_cast<unsigned int>((tmp < 0) ? 0 : tmp);
-  x_max_pix = (x_max_pix >= width_in_pixels) ? width_in_pixels - 1 : x_max_pix;
-
-  tmp = std::round(((m_center.y + m_r) - scene_beg.y) / pixel_size.GetHight());
-  unsigned int y_max_pix = static_cast<unsigned int>((tmp < 0) ? 0 : tmp);
-  y_max_pix = (y_max_pix >= hight_in_pixels) ? hight_in_pixels - 1 : y_max_pix;
+  unsigned int x_min_pix = AffineTransformationToPixel(m_center.x - m_r, scene_beg.x, pixel_size.GetWidth(), width_in_pixels);
+  unsigned int x_max_pix = AffineTransformationToPixel(m_center.x + m_r, scene_beg.x, pixel_size.GetWidth(), width_in_pixels);
+  unsigned int y_min_pix = AffineTransformationToPixel(m_center.y - m_r, scene_beg.y, pixel_size.GetHight(), hight_in_pixels);
+  unsigned int y_max_pix = AffineTransformationToPixel(m_center.y + m_r, scene_beg.y, pixel_size.GetHight(), hight_in_pixels);
 
   Vec2 center_in_scene_coord(m_center.x - scene_beg.x, m_center.y - scene_beg.y);
 

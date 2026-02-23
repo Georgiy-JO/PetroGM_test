@@ -31,6 +31,7 @@ set(INCLUDE_DIRS
 
 
 set(SCENE_SOURCES
+  ${CMAKE_CURRENT_SOURCE_DIR}/scene/objects/src_files/object.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/scene/objects/src_files/hline.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/scene/objects/src_files/vline.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/scene/objects/src_files/rect.cpp

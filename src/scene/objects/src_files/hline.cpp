@@ -22,17 +22,12 @@ void HLine::Draw(uint8_t *buffer, unsigned int width_in_pixels, unsigned int hig
       (m_beg.x > scene_end.x && m_end.x > scene_end.x))
     return;
 
-  unsigned int y = static_cast<unsigned int>(std::round((m_beg.y - scene_beg.y) / pixel_size.GetHight()));
-  y = (y >= hight_in_pixels) ? hight_in_pixels - 1 : y;
-
-  double tmp = std::round((m_beg.x - scene_beg.x) / pixel_size.GetWidth());
-  unsigned int x1 = static_cast<unsigned int>((tmp < 0) ? 0 : tmp);
-  x1 = (x1 >= width_in_pixels) ? width_in_pixels - 1 : x1;
-
-  tmp = std::round((m_end.x - scene_beg.x) / pixel_size.GetWidth());
-  unsigned int x2 = static_cast<unsigned int>((tmp < 0) ? 0 : tmp);
-  x2 = (x2 >= width_in_pixels) ? width_in_pixels - 1 : x2;
-
+  // Is alright for y too, because we know that scene_beg.y <= m_beg.y.
+  unsigned int y = AffineTransformationToPixel(m_beg.y, scene_beg.y, pixel_size.GetHight(), hight_in_pixels);
+  
+  unsigned int x1 = AffineTransformationToPixel(m_beg.x, scene_beg.x, pixel_size.GetWidth(), width_in_pixels);
+  unsigned int x2 = AffineTransformationToPixel(m_end.x, scene_beg.x, pixel_size.GetWidth(), width_in_pixels);
+  
   size_t buffer_pos;
   for (unsigned int x = x1; x <= x2; x++) {
     buffer_pos = ((hight_in_pixels - y) * width_in_pixels + x) * 3;

@@ -5,11 +5,11 @@
 #include "libbitmap.h"
 
 namespace scene {
-Scene::Scene() : m_beg(0.0f, 0.0f), m_end(0.0f, 0.0f), m_objects(), m_background_color(kDefaultBackgroundColor) {
+Scene::Scene() : m_beg(0.0f, 0.0f), m_end(0.0f, 0.0f), m_objects(), m_background_color(kDefaultBackgroundColor),m_resolution(kDefaultResolution) {
   CalculatePixelParameters();
 }
-Scene::Scene(const Vec2 &beg, const Vec2 &end, const Color3 &background_color)
-    : m_beg(beg), m_end(end), m_objects(), m_background_color(background_color) {
+Scene::Scene(const Vec2 &beg, const Vec2 &end, const Color3 &background_color, unsigned int resolution )
+    : m_beg(beg), m_end(end), m_objects(), m_background_color(background_color),m_resolution(resolution) {
   CalculatePixelParameters();
 }
 
@@ -20,6 +20,14 @@ void Scene::SetBorders(const Vec2 &beg, const Vec2 &end) {
 }
 void Scene::AddObject(std::unique_ptr<Object> obj) { m_objects.push_back(std::move(obj)); }
 void Scene::SetBackgroundColor(const Color3 &color) { m_background_color = color; }
+void Scene::SetResolution(unsigned int resolution){
+  if(resolution > kMaxResolution)
+    m_resolution = kMaxResolution;
+  else if(resolution < kMinResolution)
+    m_resolution = kMinResolution;
+  else
+    m_resolution = resolution;
+}
 
 Vec2 Scene::GetBeg() const { return m_beg; }
 Vec2 Scene::GetEnd() const { return m_end; }
@@ -29,6 +37,7 @@ Object *Scene::operator()(size_t index) {
   return m_objects[index].get();
 }
 size_t Scene::GetObjectsCount() const { return m_objects.size(); }
+int Scene::GetResolution() const { return m_resolution; }
 
 void Scene::ReplaceObject(size_t index, std::unique_ptr<Object> obj) {
   if (index >= GetObjectsCount()) throw std::runtime_error("Index out of range");
@@ -78,15 +87,15 @@ void Scene::CalculatePixelParameters() {
   double aspect = width / height;
 
   if (aspect >= 1) {
-    m_pixel_size.SetWidth(width / kMaxSizeInPixels);
-    m_width_in_pixels = kMaxSizeInPixels;
-    m_height_in_pixels = static_cast<unsigned int>(std::round(static_cast<double>(kMaxSizeInPixels) / aspect));
+    m_pixel_size.SetWidth(width / m_resolution);
+    m_width_in_pixels = m_resolution;
+    m_height_in_pixels = static_cast<unsigned int>(std::round(static_cast<double>(m_resolution) / aspect));
     m_height_in_pixels = std::max(1u, m_height_in_pixels);
     m_pixel_size.SetHight(height / m_height_in_pixels);
   } else {
-    m_pixel_size.SetHight(height / kMaxSizeInPixels);
-    m_height_in_pixels = kMaxSizeInPixels;
-    m_width_in_pixels = static_cast<unsigned int>(std::round(static_cast<double>(kMaxSizeInPixels) * aspect));
+    m_pixel_size.SetHight(height / m_resolution);
+    m_height_in_pixels = m_resolution;
+    m_width_in_pixels = static_cast<unsigned int>(std::round(static_cast<double>(m_resolution) * aspect));
     m_width_in_pixels = std::max(1u, m_width_in_pixels);
     m_pixel_size.SetWidth(width / m_width_in_pixels);
   }

@@ -22,21 +22,10 @@ void Rect::Draw(uint8_t *buffer, unsigned int width_in_pixels, unsigned int high
     return;
   }
 
-  double tmp = std::round((m_beg.x - scene_beg.x) / pixel_size.GetWidth());
-  unsigned int x1 = static_cast<unsigned int>((tmp < 0) ? 0 : tmp);
-  x1 = (x1 >= width_in_pixels) ? width_in_pixels - 1 : x1;
-
-  tmp = std::round((m_beg.y - scene_beg.y) / pixel_size.GetHight());
-  unsigned int y1 = static_cast<unsigned int>((tmp < 0) ? 0 : tmp);
-  y1 = (y1 >= hight_in_pixels) ? hight_in_pixels - 1 : y1;
-
-  tmp = std::round((m_end.x - scene_beg.x) / pixel_size.GetWidth());
-  unsigned int x2 = static_cast<unsigned int>((tmp < 0) ? 0 : tmp);
-  x2 = (x2 >= width_in_pixels) ? width_in_pixels - 1 : x2;
-
-  tmp = std::round((m_end.y - scene_beg.y) / pixel_size.GetHight());
-  unsigned int y2 = static_cast<unsigned int>((tmp < 0) ? 0 : tmp);
-  y2 = (y2 >= hight_in_pixels) ? hight_in_pixels - 1 : y2;
+  unsigned int x1 = AffineTransformationToPixel(m_beg.x, scene_beg.x, pixel_size.GetWidth(), width_in_pixels);
+  unsigned int y1 = AffineTransformationToPixel(m_beg.y, scene_beg.y, pixel_size.GetHight(), hight_in_pixels);
+  unsigned int x2 = AffineTransformationToPixel(m_end.x, scene_beg.x, pixel_size.GetWidth(), width_in_pixels);
+  unsigned int y2 = AffineTransformationToPixel(m_end.y, scene_beg.y, pixel_size.GetHight(), hight_in_pixels);
 
   size_t buffer_pos;
   for (unsigned int y = y1; y <= y2; y++) {

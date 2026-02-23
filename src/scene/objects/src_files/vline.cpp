@@ -22,16 +22,11 @@ void VLine::Draw(uint8_t *buffer, unsigned int width_in_pixels, unsigned int hig
       (m_beg.y > scene_end.y && m_end.y > scene_end.y))
     return;
 
-  unsigned int x = static_cast<unsigned int>(std::round((m_beg.x - scene_beg.x) / pixel_size.GetWidth()));
-  x = (x >= width_in_pixels) ? width_in_pixels - 1 : x;
+  // Is alright for x too, because we know that scene_beg.x <= m_beg.x.
+  unsigned int x = AffineTransformationToPixel(m_beg.x, scene_beg.x, pixel_size.GetWidth(), width_in_pixels); 
 
-  double tmp = std::round((m_beg.y - scene_beg.y) / pixel_size.GetHight());
-  unsigned int y1 = static_cast<unsigned int>((tmp < 0) ? 0 : tmp);
-  y1 = (y1 >= hight_in_pixels) ? hight_in_pixels - 1 : y1;
-
-  tmp = std::round((m_end.y - scene_beg.y) / pixel_size.GetHight());
-  unsigned int y2 = static_cast<unsigned int>((tmp < 0) ? 0 : tmp);
-  y2 = (y2 >= hight_in_pixels) ? hight_in_pixels - 1 : y2;
+  unsigned int y1 = AffineTransformationToPixel(m_beg.y, scene_beg.y, pixel_size.GetHight(), hight_in_pixels);
+  unsigned int y2 = AffineTransformationToPixel(m_end.y, scene_beg.y, pixel_size.GetHight(), hight_in_pixels);
 
   size_t buffer_pos;
   for (unsigned int y = y1; y <= y2; y++) {

@@ -16,10 +16,10 @@ void Point::Draw(uint8_t *buffer, unsigned int width_in_pixels, unsigned int hig
   if (IsThereParametersIssue(buffer, width_in_pixels, hight_in_pixels, pixel_size) || m_pos.x < scene_beg.x ||
       m_pos.x > scene_end.x || m_pos.y < scene_beg.y || m_pos.y > scene_end.y)
     return;
-  unsigned int x = static_cast<unsigned int>(std::round((m_pos.x - scene_beg.x) / pixel_size.GetWidth()));
-  x = (x >= width_in_pixels) ? width_in_pixels - 1 : x;
-  unsigned int y = static_cast<unsigned int>(std::round((m_pos.y - scene_beg.y) / pixel_size.GetHight()));
-  y = (y >= hight_in_pixels) ? hight_in_pixels - 1 : y;
+
+  // Is alright for x, y here too, because we know that scene_beg.x <= m_beg.x, scene_beg.y <= m_beg.x.
+  unsigned int x = AffineTransformationToPixel(m_pos.x, scene_beg.x, pixel_size.GetWidth(), width_in_pixels);
+  unsigned int y = AffineTransformationToPixel(m_pos.y, scene_beg.y, pixel_size.GetHight(), hight_in_pixels);
 
   size_t buffer_pos = ((hight_in_pixels - y) * width_in_pixels + x) * 3;
   (buffer)[buffer_pos] = m_color.blue;
